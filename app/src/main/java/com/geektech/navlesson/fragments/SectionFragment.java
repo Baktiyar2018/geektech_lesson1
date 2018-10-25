@@ -78,6 +78,7 @@ public class SectionFragment extends Fragment {
         mMessageView.setText(
                 getMessage(getArguments())
         );
+
     }
 
     //endregion

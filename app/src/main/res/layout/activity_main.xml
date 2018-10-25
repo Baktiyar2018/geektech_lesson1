@@ -17,6 +17,9 @@
     <android.support.design.widget.TabLayout
         android:id="@+id/main_tab_layout"
         android:layout_width="match_parent"
-        android:layout_height="50dp" />
+        android:layout_height="26dp"
+        tools:layout_editor_absoluteX="37dp"
+        tools:layout_editor_absoluteY="491dp"
+        tools:ignore="MissingConstraints" />
 
 </android.support.constraint.ConstraintLayout>

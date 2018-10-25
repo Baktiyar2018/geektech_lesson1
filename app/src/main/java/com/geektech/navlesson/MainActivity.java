@@ -1,14 +1,21 @@
 package com.geektech.navlesson;
 
+import android.content.ClipData;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.ListFragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
+import com.geektech.navlesson.study.fragments.CalculatorFragment;
+import com.geektech.navlesson.study.util.FragmentsPagerAdapter;
 import com.geektech.navlesson.util.SectionsPagerAdapter;
 
 import java.util.Arrays;
@@ -18,8 +25,12 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private ViewPager mViewPager;
-    private SectionsPagerAdapter mAdapter;
+    //private FragmentsPagerAdapter mAdapter;
     private TabLayout mTabLayout;
+    private SectionsPagerAdapter mAdapter;
+    CalculatorFragment calculatorFragment;
+    private BottomNavigationView bottomNavigationView;
+
 
     //region Lifecycle
 
@@ -68,11 +79,12 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
-    private void init(){
+    private void init() {
+        // mAdapter = new FragmentsPagerAdapter(getSupportFragmentManager());
         mAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-
         mViewPager = findViewById(R.id.main_viewpager);
         mTabLayout = findViewById(R.id.main_tab_layout);
+        bottomNavigationView = findViewById(R.id.bottom_nav);
 
         mViewPager.setAdapter(mAdapter);
 
@@ -80,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Связываем ViewPager и TabLayout
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
-        mTabLayout.addOnTabSelectedListener(new TabLayout.BaseOnTabSelectedListener(){
+        mTabLayout.addOnTabSelectedListener(new TabLayout.BaseOnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 mViewPager.setCurrentItem(tab.getPosition());
@@ -95,14 +107,48 @@ public class MainActivity extends AppCompatActivity {
             public void onTabReselected(TabLayout.Tab tab) {
 
             }
+
         });
+        /*
+        bottomNavigationView.setOnNavigationItemSelectedListener(
+                new BottomNavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                        switch (menuItem.getItemId()) {
+                            case R.id.navigation_home:
+                                //initHome();
+                                //break;
+                            case R.id.navigation_dashboard:
+                                //initList();
+                                //break;
+                            case R.id.navigation_notifications:
+                                //initCalc();
+                                //break;
+                        }
+                        return false;
+
+                    }
+                }
+        );
     }
 
+    private void initHome(){
+        mTabLayout.getTabAt(0);
+    }
+    private void initList(){
+        mTabLayout.getTabAt(1);
+    }
+    private void initCalc(){
+        mTabLayout.getTabAt(2);
+    }
+    */
+    }
     private void initTabLayout(){
         //Добавляем табы
         mTabLayout.addTab(getTab("Home"));
-        mTabLayout.addTab(getTab("Posts"));
-        mTabLayout.addTab(getTab("Settings"));
+        mTabLayout.addTab(getTab("List"));
+        mTabLayout.addTab(getTab("Calculator"));
+
     }
 
     private TabLayout.Tab getTab(String text){
